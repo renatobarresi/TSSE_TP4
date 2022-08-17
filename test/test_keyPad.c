@@ -74,6 +74,8 @@ void simulated_no_key_pressed(void)
     keypad_4x4.flagC, keypad_4x4.flagD, keypad_4x4.flagAst, keypad_4x4.flagHash = 0;
 }
 
+/*Tests*/
+
 keypadPinout HC_543_Keypad;
 
 void setUp(void)
@@ -86,8 +88,9 @@ void setUp(void)
 void test_pressed_key_is_A(void)
 {
     char key = 'A';
+    char pressedKey;
     simular_tecla_presionada(key);
-    char pressedKey = keypad_detect_key(&HC_543_Keypad);
+    pressedKey = keypad_detect_key(&HC_543_Keypad);
     TEST_ASSERT_EQUAL(key, pressedKey);
 }
 
@@ -95,7 +98,8 @@ void test_pressed_key_is_A(void)
 void test_pressed_key_is_hash(void)
 {
     char key = '#';
+    char pressedKey;
     simular_tecla_presionada(key);
-    char pressedKey = keypad_detect_key(&HC_543_Keypad);
+    pressedKey = keypad_detect_key(&HC_543_Keypad);
     TEST_ASSERT_EQUAL(key, pressedKey);
 }
