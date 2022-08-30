@@ -12,6 +12,9 @@
 #include "keypad.h"
 
 /*Simulaciones*/
+
+extern simulatedKeypad keypad_4x4;
+
 void simular_tecla_presionada(char tecla)
 {
     switch(tecla)
@@ -69,9 +72,9 @@ void simular_tecla_presionada(char tecla)
 
 void simulated_no_key_pressed(void)
 {
-    keypad_4x4.flag1, keypad_4x4.flag2, keypad_4x4.flag3, keypad_4x4.flag4, keypad_4x4.flag5, keypad_4x4.flag6, keypad_4x4.flag7, 
-    keypad_4x4.flag8, keypad_4x4.flag9, keypad_4x4.flag0, keypad_4x4.flagA, keypad_4x4.flagB,
-    keypad_4x4.flagC, keypad_4x4.flagD, keypad_4x4.flagAst, keypad_4x4.flagHash = 0;
+    keypad_4x4.flag1 = 0, keypad_4x4.flag2 = 0, keypad_4x4.flag3 = 0, keypad_4x4.flag4 = 0, keypad_4x4.flag5 = 0, keypad_4x4.flag6 = 0, keypad_4x4.flag7 = 0, 
+    keypad_4x4.flag8 = 0, keypad_4x4.flag9 = 0, keypad_4x4.flag0 = 0, keypad_4x4.flagA = 0, keypad_4x4.flagB = 0,
+    keypad_4x4.flagC = 0, keypad_4x4.flagD = 0, keypad_4x4.flagAst = 0, keypad_4x4.flagHash = 0;
 }
 
 /*Tests*/
@@ -85,9 +88,19 @@ void setUp(void)
 }
 
 /* @brief check if a specific key is pressed */
-void test_pressed_key_is_A(void)
+void test_pressed_key_is_1(void)
 {
-    char key = 'A';
+    char key = '1';
+    char pressedKey;
+    simular_tecla_presionada(key);
+    pressedKey = keypad_detect_key(&HC_543_Keypad);
+    TEST_ASSERT_EQUAL(key, pressedKey);
+}
+
+/* @brief check if a specific key is pressed */
+void test_pressed_key_is_B(void)
+{
+    char key = 'B';
     char pressedKey;
     simular_tecla_presionada(key);
     pressedKey = keypad_detect_key(&HC_543_Keypad);
@@ -98,6 +111,16 @@ void test_pressed_key_is_A(void)
 void test_pressed_key_is_hash(void)
 {
     char key = '#';
+    char pressedKey;
+    simular_tecla_presionada(key);
+    pressedKey = keypad_detect_key(&HC_543_Keypad);
+    TEST_ASSERT_EQUAL(key, pressedKey);
+}
+
+/* @brief check if a specific key is pressed */
+void test_pressed_key_is_6(void)
+{
+    char key = '6';
     char pressedKey;
     simular_tecla_presionada(key);
     pressedKey = keypad_detect_key(&HC_543_Keypad);

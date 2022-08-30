@@ -6,8 +6,6 @@ typedef struct keypad{
     flagC, flagD, flagAst, flagHash;
 }simulatedKeypad;
 
-simulatedKeypad keypad_4x4;
-
 /*TODO: Find a better way for the user to specify the pins the keypad is connected*/
 #define R1_PIN GPIO_PIN_0
 #define R1_PORT GPIOA
