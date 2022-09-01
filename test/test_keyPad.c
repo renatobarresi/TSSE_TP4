@@ -3,18 +3,20 @@
     Los test a ejecutar son los siguientes:
     -Key presionada
     -Estado de una key
+    -Testeo de deteccion de password correcto
+    -Testeo de deteccion de password incorrecto
     -Cambio de estado de una key
-    -Testeo de secuencia de keys
     -Testeo de evento en base a secuencia de keys
 */
 
 #include "unity.h"
 #include "keypad.h"
 
-/*Simulaciones*/
+/*---------------Simulaciones----------------*/
 
-extern simulatedKeypad keypad_4x4;
+extern simulatedKeypad keypad_4x4;          //! simulation class instance
 
+/*@brief we use flags to simulate the action of pressing the key*/
 void simular_tecla_presionada(char tecla)
 {
     switch(tecla)
@@ -77,10 +79,11 @@ void simulated_no_key_pressed(void)
     keypad_4x4.flagC = 0, keypad_4x4.flagD = 0, keypad_4x4.flagAst = 0, keypad_4x4.flagHash = 0;
 }
 
-/*Tests*/
+/*--------------Tests---------------*/
 
-keypadPinout HC_543_Keypad;
+keypadPinout HC_543_Keypad;                //! keypadPinout class instance
 
+/* @brief all keys are not pressed and inits the keypad */
 void setUp(void)
 {
     simulated_no_key_pressed();
@@ -125,4 +128,52 @@ void test_pressed_key_is_6(void)
     simular_tecla_presionada(key);
     pressedKey = keypad_detect_key(&HC_543_Keypad);
     TEST_ASSERT_EQUAL(key, pressedKey);
+}
+
+/* @brief check if a particular key is pressed */
+void test_if_key_is_pressed(void)
+{
+    char key = '7';
+    uint8_t keyStatus = 0;
+    simular_tecla_presionada(key);
+    keyStatus = keypad_check_status_key(&HC_543_Keypad, &key);
+    TEST_ASSERT_EQUAL(1, keyStatus);
+}
+
+/* @brief check if a particular key is not pressed */
+void test_if_key_not_pressed(void)
+{
+    char key = '7';
+    uint8_t keyStatus = 0;
+    keyStatus = keypad_check_status_key(&HC_543_Keypad, &key);
+    TEST_ASSERT_EQUAL(0, keyStatus);
+}
+
+/* @brief check if a particular key is pressed */
+void test_if_ast_key_is_pressed(void)
+{
+    char key = '*';
+    uint8_t keyStatus = 0;
+    simular_tecla_presionada(key);
+    keyStatus = keypad_check_status_key(&HC_543_Keypad, &key);
+    TEST_ASSERT_EQUAL(1, keyStatus);
+}
+
+/* @brief check if a particular key is not pressed */
+void test_if_ast_key_not_pressed(void)
+{
+    char key = '*';
+    uint8_t keyStatus = 0;
+    keyStatus = keypad_check_status_key(&HC_543_Keypad, &key);
+    TEST_ASSERT_EQUAL(0, keyStatus);
+}
+
+/* @brief check if a particular key is pressed */
+void test_if_4_key_is_pressed(void)
+{
+    char key = '4';
+    uint8_t keyStatus = 0;
+    simular_tecla_presionada(key);
+    keyStatus = keypad_check_status_key(&HC_543_Keypad, &key);
+    TEST_ASSERT_EQUAL(1, keyStatus);
 }

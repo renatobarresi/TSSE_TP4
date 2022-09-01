@@ -1,3 +1,5 @@
+/*Mock smt32f4 header file*/
+
 #include <stdint.h>
 
 typedef uint8_t GPIO_TypeDef; 

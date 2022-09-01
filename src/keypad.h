@@ -1,6 +1,7 @@
 #include "stm32f4xx_hal_gpio.h"
 #include <stdint.h>
 
+/* This is used for testing, should be deleted when passing to production code*/
 typedef struct keypad{
     uint8_t flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag0, flagA, flagB,
     flagC, flagD, flagAst, flagHash;
@@ -37,3 +38,5 @@ typedef struct keypadPins{
 
 void keypad_init(keypadPinout * myKeypad);
 char keypad_detect_key(keypadPinout * myKeypad);
+uint8_t keypad_check_password(char * pass);
+uint8_t keypad_check_status_key(keypadPinout * myKeypad, char * key);
